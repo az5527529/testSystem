@@ -5,9 +5,11 @@ CREATE TABLE `user_info` (
   `score` float NOT NULL DEFAULT 0 COMMENT '分数',
   `openid` varchar(64) NOT NULL DEFAULT '' COMMENT '微信id',
   `test_time` varchar(20) NOT NULL DEFAULT '' COMMENT '作答时间',
+  `activity_id` bigint NOT NULL DEFAULT 0 COMMENT '活动id',
   
   PRIMARY KEY (`user_info_id`),
   key user_info_user_name(`user_name`),
   key user_info_openid(`openid`),
-  key user_info_test_time(`test_time`)
+  key user_info_test_time(`test_time`),
+  key user_info_activity_id(`activity_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

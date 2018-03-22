@@ -5,7 +5,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -14,8 +13,8 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "user_info", schema = "test", catalog = "")
-@DynamicInsert(false)
-@DynamicUpdate(false)
+@DynamicInsert(true)
+@DynamicUpdate(true)
 public class UserInfo {
     private long userInfoId;
     private String userName;
@@ -105,12 +104,23 @@ public class UserInfo {
     }
 
     @Basic
-    @Column(name = "test_time", nullable = false)
+    @Column(name = "test_time", nullable = false, length = 20)
     public String getTestTime() {
         return testTime;
     }
 
+
     public void setTestTime(String testTime) {
         this.testTime = testTime;
+    }    private long activityId;
+
+    @Basic
+    @Column(name = "activity_id", nullable = false)
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
     }
 }
