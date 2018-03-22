@@ -1,0 +1,26 @@
+#fm
+{
+    margin: 0;
+    padding: 10px 30px;
+}
+.ftitle
+{
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.labelLi{
+    width: 60px;
+}
+.inputLi{
+    width: 200px;
+}
+#fm select{
+    width:200px;
+}
+#fm input{
+    width:100%;
+}
+

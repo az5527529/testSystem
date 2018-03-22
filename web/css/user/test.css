@@ -1,0 +1,57 @@
+
+body{
+    font-size: 1rem;
+}
+
+
+a{
+    display: block;
+    width: 10rem;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #bbb;
+    border-radius:0.5rem;
+    color: #444;
+    margin: 0 auto;
+}
+
+
+ul{
+    display: block;
+}
+li{
+    width: 95%;
+    line-height: 2rem;
+}
+ul::after{
+	content:'';
+	display:block;
+	height:0;
+	visibility:hidden;
+	clear:both;
+}
+#userForm li{
+    height: 2.5rem;
+    line-height: 2.3rem;
+    font-size: 2rem;
+}
+#userForm input{
+    height: 2.5rem;
+    line-height: 2.3rem;
+    width: 15rem;
+    font-size: 1.8rem;
+}
+#userForm{
+    border-bottom: 2px solid  #bbb;
+}
+#question{
+    border-bottom: 2px solid  #bbb;
+}
+#content{
+    max-width: 750px;
+    margin:0 auto;
+    width:100%;
+}
+.questionLi{
+    font-size: 1.2rem;
+}

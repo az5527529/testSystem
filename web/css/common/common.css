@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+body,ul,li,div,a{
+	padding:0;
+	margin:0;
+}
+ul{
+	padding:0;
+	margin:0;
+}
+li{
+	padding:5px 5px;
+	margin:0;
+	list-style:none;
+	line-height:15px;
+	float:left;
+}
+/*ul::after{
+	content:'';
+	display:block;
+	height:0;
+	visibility:hidden;
+	clear:both;
+}*/
+ul{
+	display: inline-block;
+}
+.wrap{
+	max-width: 750px;
+	margin:0 auto;
+	width:100%;
+}
+.wrap ul{
+	width: 80%;
+	display:block;
+}
+.wrap ul li{
+	width: 100%;
+}
+.redStar{
+	color: red;
+}
