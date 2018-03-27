@@ -3,10 +3,7 @@ package com.entity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -14,15 +11,22 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by victor on 2018/3/22.
  */
 @Entity
-@javax.persistence.Table(name = "activity", schema = "test", catalog = "")
+@Table(name = "activity", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
 public class Activity {
     private long activityId;
+    private String content;
+    private String startTime;
+    private String endTime;
+    private String backgroundUrl;
+    private boolean isActive;
+    private int activityType;
+    private String activityName;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @javax.persistence.Column(name = "activity_id", nullable = false)
+    @Column(name = "activity_id", nullable = false)
     public long getActivityId() {
         return activityId;
     }
@@ -31,10 +35,8 @@ public class Activity {
         this.activityId = activityId;
     }
 
-    private String content;
-
     @Basic
-    @javax.persistence.Column(name = "content", nullable = false, length = 256)
+    @Column(name = "content", nullable = false, length = 256)
     public String getContent() {
         return content;
     }
@@ -43,10 +45,8 @@ public class Activity {
         this.content = content;
     }
 
-    private String startTime;
-
     @Basic
-    @javax.persistence.Column(name = "start_time", nullable = false, length = 20)
+    @Column(name = "start_time", nullable = false, length = 20)
     public String getStartTime() {
         return startTime;
     }
@@ -55,10 +55,8 @@ public class Activity {
         this.startTime = startTime;
     }
 
-    private String endTime;
-
     @Basic
-    @javax.persistence.Column(name = "end_time", nullable = false, length = 20)
+    @Column(name = "end_time", nullable = false, length = 20)
     public String getEndTime() {
         return endTime;
     }
@@ -67,10 +65,8 @@ public class Activity {
         this.endTime = endTime;
     }
 
-    private String backgroundUrl;
-
     @Basic
-    @javax.persistence.Column(name = "background_url", nullable = false, length = 128)
+    @Column(name = "background_url", nullable = false, length = 128)
     public String getBackgroundUrl() {
         return backgroundUrl;
     }
@@ -79,22 +75,18 @@ public class Activity {
         this.backgroundUrl = backgroundUrl;
     }
 
-    private boolean isActive;
-
     @Basic
-    @javax.persistence.Column(name = "is_active", nullable = false)
-    public boolean isActive() {
+    @Column(name = "is_active", nullable = false)
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
-    private int activityType;
-
     @Basic
-    @javax.persistence.Column(name = "activity_type", nullable = false)
+    @Column(name = "activity_type", nullable = false)
     public int getActivityType() {
         return activityType;
     }
@@ -132,5 +124,15 @@ public class Activity {
         result = 31 * result + (isActive ? 1 : 0);
         result = 31 * result + activityType;
         return result;
+    }
+
+    @Basic
+    @Column(name = "activity_name", nullable = false, length = 64)
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
     }
 }

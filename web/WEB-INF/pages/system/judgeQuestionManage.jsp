@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>判断题题管理</title>
-    <link rel="stylesheet" href="${ctx}/css/common/editForm.css" type="text/css">
+    <link rel="stylesheet" href="${ctx}/css/ignorePath/common/editForm.css" type="text/css">
 </head>
 <script src="${ctx}/js/system/judgeQuestionManage.js" type="text/javascript"></script>
 <body>

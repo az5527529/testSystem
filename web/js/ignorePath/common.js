@@ -49,3 +49,25 @@
 
  	});
  }
+
+/**
+ * 导出excel的方法
+ * @param params 参数
+ * @param xlsName excel名，可未空
+ */
+ function exportToExcel(params){
+
+	var method = "post";
+	var form = document.createElement("form");
+	form.setAttribute("method", method);
+	form.setAttribute("action", ctx + '/export/exportToExcel.action');
+	for(var i=0; i<params.length; i++) {
+		var hiddenField = document.createElement("input");
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", params[i].name);
+		hiddenField.setAttribute("value", params[i].value);
+		form.appendChild(hiddenField);
+	}
+	document.body.appendChild(form);
+	form.submit();
+ }

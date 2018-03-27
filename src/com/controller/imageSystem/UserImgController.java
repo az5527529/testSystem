@@ -72,7 +72,7 @@ public class UserImgController {
                 }else{
                     String fileName = fileItem.getName();// 原文件名
                     String suffix = fileName.substring(fileName.lastIndexOf('.'));//扩展名
-                    String newFileName = new Date().getTime() + suffix;//保存到服务器的图片名称
+                    String newFileName = "userImg/"+new Date().getTime() + suffix;//保存到服务器的图片名称
 
                     entity.setImgName(fileName.substring(0,fileName.lastIndexOf('.')));//不保存扩展名
                     entity.setImgUrl(newFileName);

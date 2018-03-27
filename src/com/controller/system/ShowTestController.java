@@ -24,6 +24,13 @@ import java.util.Map;
 public class ShowTestController {
     @Resource
     private ShowTestService showTestService;
+
+    /**
+     * 获取测试总体情况
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @RequestMapping(value = "/showGeneralTest", method = RequestMethod.POST)
     public void showGeneralTest(HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
@@ -43,7 +50,7 @@ public class ShowTestController {
         condition.put("sort",request.getParameter("sort"));
         condition.put("order",request.getParameter("order"));
 
-        Page page = this.showTestService.showGeneralTest(condition);
+        Page page = this.showTestService.getData(condition);
         WebUtil.outputPage(request, response, JSONObject.toJSONString(page));
     }
 }

@@ -153,3 +153,16 @@ function showDetail(userInfoId){
         async : true
     });
 }
+
+//导出
+function exportAll(){
+    var params =[
+        {name: 'testTimeBegin', value: $("#testTimeBegin").datebox('getValue')}
+        ,{name: 'testTimeEnd', value: $("#testTimeEnd").datebox('getValue')}
+        ,{name: 'userName', value:$("#userName").val()}
+        ,{name: 'telephone', value:$("#telephone").val()}
+        ,{name: 'serviceName',value : "userInfoService"}
+    ];
+
+    exportToExcel(params);
+}

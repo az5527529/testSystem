@@ -17,7 +17,7 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style,content=black"/>
-    <link href="${ctx}/css/common/editForm.css" type="text/css" rel="stylesheet">
+    <link href="${ctx}/css/ignorePath/common/editForm.css" type="text/css" rel="stylesheet">
     <style>
         #detail  ul{
             width: 100%;
@@ -87,5 +87,5 @@
            iconcls="icon-cancel">关闭</a>
     </div>
 </body>
-<script src="${ctx}/js/user/showScore.js"></script>
+<script src="${ctx}/js/ignorePath/showScore.js"></script>
 </html>

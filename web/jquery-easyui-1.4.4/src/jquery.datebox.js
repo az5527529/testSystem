@@ -242,7 +242,8 @@
 		currentText:'Today',
 		closeText:'Close',
 		okText:'Ok',
-		
+		cleanText:'Clean',
+
 		buttons:[{
 			text: function(target){return $(target).datebox('options').currentText;},
 			handler: function(target){

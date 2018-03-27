@@ -32,3 +32,14 @@ function searchTest(){
     $('#showTestTable').datagrid("options").url=ctx+"/showTest/showGeneralTest.action?ids=" + Math.random();
     $('#showTestTable').datagrid("load");
 }
+
+//导出
+function exportAll(){
+    var params =[
+        {name: 'testTimeBegin', value: $("#testTimeBegin").datebox('getValue')}
+        ,{name: 'testTimeEnd', value: $("#testTimeEnd").datebox('getValue')}
+        ,{name: 'serviceName',value : "showTestService"}
+    ];
+
+    exportToExcel(params);
+}

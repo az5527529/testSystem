@@ -23,7 +23,7 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style,content=black"/>
-    <link href="${ctx}/css/user/test.css" type="text/css" rel="stylesheet">
+    <link href="${ctx}/css/ignorePath/test.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -51,7 +51,7 @@
     </div>
 
 </body>
-<script src="${ctx}/js/user/test.js"></script>
+<script src="${ctx}/js/ignorePath/test.js"></script>
 <script type="text/javascript">
 
 </script>

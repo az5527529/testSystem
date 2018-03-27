@@ -12,6 +12,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,50 +21,6 @@ import java.util.Map;
  */
 @Service("userInfoService")
 public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements UserInfoService {
-    @Override
-    public Page searchUserInfo(Map<String, String> condition) {
-        //条件
-        StringBuffer conditionSql = new StringBuffer();
-        //测试开始日期
-        String testTimeBegin = condition.get("testTimeBegin");
-        if(!StringUtil.isEmptyString(testTimeBegin)){
-            conditionSql.append(" and test_time>='" + testTimeBegin + " 00:00:00'");
-        }
-        //测试结束日期
-        String testTimeEnd = condition.get("testTimeEnd");
-        if(!StringUtil.isEmptyString(testTimeEnd)){
-            conditionSql.append(" and test_time<='" + testTimeEnd + " 23:59:59'");
-        }
-        //姓名
-        String userName = condition.get("userName");
-        if(!StringUtil.isEmptyString(userName)){
-            conditionSql.append(" and user_Name like '%" + userName + "%'");
-        }
-        //电话
-        String telephone = condition.get("telephone");
-        if(!StringUtil.isEmptyString(telephone)){
-            conditionSql.append(" and telephone like '%" + telephone + "%' ");
-        }
-
-        StringBuffer sql = new StringBuffer();
-        sql.append("select user_info_id userInfoId,user_name userName,telephone telephone,score score,test_time testTime \n");
-        sql.append("from user_info where 1=1 ");
-        sql.append(conditionSql);
-
-        int pageSize = StringUtil.isEmptyString(condition.get("pageSize"))? 0 : Integer.parseInt(condition.get("pageSize"));
-        int pageNum = StringUtil.isEmptyString(condition.get("pageNum"))? 0 : Integer.parseInt(condition.get("pageNum"));
-        String sort = condition.get("sort");
-        String order = condition.get("order");
-        if(!StringUtil.isEmptyString(sort)){
-            sql.append(" order by "+sort+" "+order);
-        }
-
-        List list = getSession().createSQLQuery(sql.toString()).setFirstResult((pageNum-1)*pageSize).setMaxResults(pageSize).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
-        Page page = new Page();
-        page.setRows(list);
-        page.setTotal(CollectionUtil.isEmptyCollection(list) ? 0 : list.size());
-        return page;
-    }
 
     @Override
     public UserInfo saveOrUpdateEntity(UserInfo entity) {
@@ -159,4 +116,57 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements Us
         return true;
     }
 
+    @Override
+    public Map<String, Object> getParamMap() {
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("xlsName", "测试情况表.xls");
+        paramMap.put("queryHeaders", "姓名,电话,分数,提交时间");
+        paramMap.put("queryKeys", "userName,telephone,score,testTime");
+        return paramMap;
+    }
+
+    @Override
+    public Page getData(Map<String, String> condition) {
+        //条件
+        StringBuffer conditionSql = new StringBuffer();
+        //测试开始日期
+        String testTimeBegin = condition.get("testTimeBegin");
+        if(!StringUtil.isEmptyString(testTimeBegin)){
+            conditionSql.append(" and test_time>='" + testTimeBegin + " 00:00:00'");
+        }
+        //测试结束日期
+        String testTimeEnd = condition.get("testTimeEnd");
+        if(!StringUtil.isEmptyString(testTimeEnd)){
+            conditionSql.append(" and test_time<='" + testTimeEnd + " 23:59:59'");
+        }
+        //姓名
+        String userName = condition.get("userName");
+        if(!StringUtil.isEmptyString(userName)){
+            conditionSql.append(" and user_Name like '%" + userName + "%'");
+        }
+        //电话
+        String telephone = condition.get("telephone");
+        if(!StringUtil.isEmptyString(telephone)){
+            conditionSql.append(" and telephone like '%" + telephone + "%' ");
+        }
+
+        StringBuffer sql = new StringBuffer();
+        sql.append("select user_info_id userInfoId,user_name userName,telephone telephone,cast(score as char) score,test_time testTime \n");
+        sql.append("from user_info where 1=1 ");
+        sql.append(conditionSql);
+
+        int pageSize = StringUtil.isEmptyString(condition.get("pageSize"))? 0 : Integer.parseInt(condition.get("pageSize"));
+        int pageNum = StringUtil.isEmptyString(condition.get("pageNum"))? 0 : Integer.parseInt(condition.get("pageNum"));
+        String sort = condition.get("sort");
+        String order = condition.get("order");
+        if(!StringUtil.isEmptyString(sort)){
+            sql.append(" order by "+sort+" "+order);
+        }
+
+        List list = getSession().createSQLQuery(sql.toString()).setFirstResult((pageNum-1)*pageSize).setMaxResults(pageSize).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
+        Page page = new Page();
+        page.setRows(list);
+        page.setTotal(super.getCount(conditionSql.toString()));
+        return page;
+    }
 }

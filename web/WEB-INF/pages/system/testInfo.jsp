@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="${ctx}/css/common/editForm.css" type="text/css">
+    <link rel="stylesheet" href="${ctx}/css/ignorePath/common/editForm.css" type="text/css">
 </head>
 
 <body>

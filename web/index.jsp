@@ -13,7 +13,16 @@
       addTab(text,href);
     });
   });
-
+  function logout(){
+    $.ajax({
+      type : "post",
+      url : "${ctx}/login/logout.action?ids=" + Math.random(),
+      success : function(data) {
+        window.location = 'login.jsp';;
+      },
+      async : true
+    });
+  }
 </script>
 <style type="text/css">
   #menu {
@@ -47,10 +56,11 @@
   }
 </style>
 <body class="easyui-layout">
-<div data-options="region:'north',title:'欢迎来到答题管理系统',split:true"
+<div data-options="region:'north',title:'欢迎来到后台管理系统',split:true"
      style="height: 70px;">
-  <b>欢迎您</b><br />登录时间:<%=new java.text.SimpleDateFormat("yyyy年MM月dd日 HH:mm").format(new java.util.Date()) %><br />
-
+  <b>欢迎您,${loginUser.userName}</b><br />登录时间:<%=new java.text.SimpleDateFormat("yyyy年MM月dd日 HH:mm").format(new java.util.Date()) %>
+  <a href="#" onclick="logout()">退出
+  </a>
 </div>
 <div data-options="region:'west',title:'系统菜单',split:true"
      style="width: 200px;">
@@ -63,6 +73,7 @@
     </div>
     <div title="分数管理">
       <ul>
+        <li><a href="#" title="${ctx}/pages/system/activityManage.action">活动管理</a></li>
         <li><a href="#" title="${ctx}/pages/system/testInfo.action">试题调整</a></li>
         <li><a href="#" title="${ctx}/pages/system/showTest.action">查看测试总体情况</a></li>
         <li><a href="#" title="${ctx}/pages/system/showTestDetail.action">查看测试情况</a></li>

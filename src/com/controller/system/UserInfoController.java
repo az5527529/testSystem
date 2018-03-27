@@ -49,7 +49,7 @@ public class UserInfoController {
         condition.put("sort",request.getParameter("sort"));
         condition.put("order",request.getParameter("order"));
 
-        Page page = this.userInfoService.searchUserInfo(condition);
+        Page page = this.userInfoService.getData(condition);
         WebUtil.outputPage(request, response, JSONObject.toJSONString(page));
     }
 

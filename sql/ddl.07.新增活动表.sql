@@ -1,5 +1,6 @@
 CREATE TABLE `activity` (
   `activity_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `activity_name` varchar(64) NOT NULL default '' COMMENT '活动名称',
   `content` varchar(256) NOT NULL default '' COMMENT '活动内容',
   `start_time` varchar(20) NOT NULL DEFAULT '' COMMENT '开始时间',
   `end_time` varchar(20) NOT NULL DEFAULT '' COMMENT '结束时间',

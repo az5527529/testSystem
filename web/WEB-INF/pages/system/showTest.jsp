@@ -38,6 +38,9 @@
         <a href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-search'" onclick="searchTest()"
            plain="true"></a>
+        <a href="#" class="easyui-linkbutton"
+           onclick="exportAll()"
+           plain="true">导出</a>
     </div>
 </body>
 <script src="${ctx}/js/system/showTest.js"></script>

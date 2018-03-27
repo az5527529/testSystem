@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="${ctx}/css/common/editForm.css" type="text/css">
+    <link rel="stylesheet" href="${ctx}/css/ignorePath/common/editForm.css" type="text/css">
     <style>
         .wrap ul{
             width: 100%;
@@ -48,7 +48,9 @@
         <a href="#"
            class="easyui-linkbutton" iconCls="icon-edit" id="edit" plain="true" onclick="editUserInfo()"></a>
         <a
-                href="#" class="easyui-linkbutton" iconCls="icon-remove" id="remove" plain="true" onclick="deleteUserInfo()"></a>
+            href="#" class="easyui-linkbutton" iconCls="icon-remove" id="remove" plain="true" onclick="deleteUserInfo()"></a>
+        <a
+                href="#" class="easyui-linkbutton" id="export" plain="true" onclick="exportAll()">导出</a>
     </div>
     <div id="dlg" class="easyui-dialog" style="width: 420px; height: 400px; padding: 10px 20px;"
          closed="true" buttons="#dlg-buttons">

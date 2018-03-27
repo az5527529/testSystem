@@ -23,7 +23,7 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style,content=black"/>
-    <link rel="stylesheet" href="${ctx}/css/imageSystem/uploadImg.css">
+    <link rel="stylesheet" href="${ctx}/css/ignorePath/uploadImg.css">
 </head>
 
 <body>
@@ -52,7 +52,7 @@
     </div>
 
 </body>
-<script src="${ctx}/js/imageSystem/uploadImg.js"></script>
+<script src="${ctx}/js/ignorePath/uploadImg.js"></script>
 <script type="text/javascript">
 
 </script>

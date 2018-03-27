@@ -4,6 +4,7 @@ import com.entity.JudgeQuestion;
 import com.service.system.JudgeQuestionService;
 import com.util.StringUtil;
 import com.util.WebUtil;
+import com.vo.Page;
 import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by victor on 2018/2/28.
@@ -28,29 +32,18 @@ public class JudgeQuestionController {
     @RequestMapping(value = "/searchQuestion", method = RequestMethod.POST)
     public void searchQuestion(HttpServletRequest request,
                               HttpServletResponse response) throws IOException {
-        StringBuffer whereCondition = new StringBuffer();
-        String questionNo = request.getParameter("questionNo");
-        String content = request.getParameter("content");
-        if(!StringUtil.isEmptyString(questionNo)){
-            whereCondition.append(" and questionNo='" + questionNo + "'");
+        Map<String,String[]> parameterMap = request.getParameterMap();
+        Map paramMap = new HashMap();
+        for(Iterator iter = parameterMap.entrySet().iterator(); iter.hasNext();) {
+            Map.Entry element = (Map.Entry) iter.next();
+            //key值
+            Object strKey = element.getKey();
+            //value,数组形式
+            String[] value = (String[]) element.getValue();
+            paramMap.put(strKey,value[0]);
         }
-        if(!StringUtil.isEmptyString(content)){
-            whereCondition.append(" and content like '%" + content + "%'");
-        }
-        String rowsStr = request.getParameter("rows");
-        String pageStr=request.getParameter("page");
-        int pageSize = 10;
-        int page = 1;
-        if(!StringUtil.isEmptyString(rowsStr)&&!StringUtil.isEmptyString(pageStr)){
-            pageSize = Integer.parseInt(rowsStr);
-            page = Integer.parseInt(pageStr);
-        }
-        String sort = request.getParameter("sort");
-        String order = request.getParameter("order");
-        List<JudgeQuestion> list = judgeQuestionService.query(whereCondition.toString(),(page-1)*pageSize,pageSize,sort,order);
-        JSONObject o = new JSONObject();
-        o.put("total", judgeQuestionService.getCount(whereCondition.toString()));
-        o.put("rows", list);
+        Page page = judgeQuestionService.getData(paramMap);
+        JSONObject o = JSONObject.fromObject(page);
         WebUtil.outputPage(request, response, o.toString());
     }
 
