@@ -73,7 +73,7 @@ public class SessionFilter implements Filter {
             filterResult =  currentURL.toLowerCase().endsWith(ignoreFile.toLowerCase());
         }
         String[] ignorePaths = new String[]{"js/ignorePath","css/ignorePath","login/login.action",
-                "img","jquery-easyui-1.4.4","randomCodeServlet","wechat","userImg","userInfo","answerDetail"};
+                "img","jquery-easyui-1.4.4","randomCodeServlet","wechat","userImg","userInfo","answerDetail","activity"};
         for (String ignorePath: ignorePaths) {
             if(filterResult){
                 return true;

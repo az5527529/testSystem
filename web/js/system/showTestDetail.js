@@ -129,10 +129,10 @@ function showDetail(userInfoId){
                     choiceDiv.append(firstUl);
                     //第二行
                     var seccondUl = $("<ul>");//选项
-                    seccondUl.append($("<li></li>").html("&nbsp;A" + data.keya));
-                    seccondUl.append($("<li></li>").html("&nbsp;B" + data.keyb));
-                    seccondUl.append($("<li></li>").html("&nbsp;C" + data.keyc));
-                    seccondUl.append($("<li></li>").html("&nbsp;D" + data.keyd));
+                    seccondUl.append($("<li></li>").html("&nbsp;A&nbsp;" + data.keya));
+                    seccondUl.append($("<li></li>").html("&nbsp;B&nbsp;" + data.keyb));
+                    seccondUl.append($("<li></li>").html("&nbsp;C&nbsp;" + data.keyc));
+                    seccondUl.append($("<li></li>").html("&nbsp;D&nbsp;" + data.keyd));
                     choiceDiv.append(seccondUl);
                 }else if(type == 2){//判断题
                     j++;

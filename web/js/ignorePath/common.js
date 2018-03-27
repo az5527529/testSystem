@@ -71,3 +71,19 @@
 	document.body.appendChild(form);
 	form.submit();
  }
+/**
+ * 获取url上的数据方法
+ * @param name
+ * @returns {null}
+ */
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = decodeURI(window.location.search).substr(1).match(reg);
+	if (r != null) return unescape(r[2]);
+	return null;
+
+	/**
+	 * 获取url上的数据的例子
+	 */
+	//var channelId = getQueryString('channelId');
+}

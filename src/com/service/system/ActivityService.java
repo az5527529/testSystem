@@ -11,4 +11,6 @@ public interface ActivityService extends BaseService<Activity> {
     public Activity saveOrUpdateActivity(Activity entity);
 
     public String getImgeUrlById(long id);
+
+    public Activity getActivity(int activityType);
 }

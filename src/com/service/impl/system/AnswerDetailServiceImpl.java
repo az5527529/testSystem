@@ -1,5 +1,6 @@
 package com.service.impl.system;
 
+import com.entity.Activity;
 import com.entity.AnswerDetail;
 import com.entity.TestInfo;
 import com.entity.UserInfo;
@@ -10,6 +11,8 @@ import com.util.CollectionUtil;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +44,29 @@ public class AnswerDetailServiceImpl extends BaseServiceImpl<AnswerDetail> imple
 
     @Override
     public void saveTestDetail(UserInfo userInfo, List<AnswerDetail> list) throws MessageException {
+        //校验活动当前状态
+        String searchActivity = "from Activity where activityId=:id";
+        List<Activity> activityList = super.getSession().createQuery(searchActivity).setLong("id",userInfo.getActivityId()).list();
+        if(CollectionUtil.isEmptyCollection(activityList)){
+            throw new MessageException().setErrorMsg("活动不存在");
+        }else {
+            Activity activity = activityList.get(0);
+            if(!activity.getIsActive()){
+                throw new MessageException().setErrorMsg("活动已停止");
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = sdf.format(new Date());
+            if(currentTime.compareTo(activity.getStartTime()) < 0){
+                throw new MessageException().setErrorMsg("活动还没开始");
+            }
+            if(currentTime.compareTo(activity.getEndTime()) > 0){
+                throw new MessageException().setErrorMsg("活动已结束");
+            }
+        }
+
         //校验用户是否已作答
-        String searchUser = "select 1 from user_info where openid=:id";
-        List userList = getSession().createSQLQuery(searchUser).setString("id",userInfo.getOpenid()).list();
+        String searchUser = "select 1 from user_info where openid=:id and activity_id=:activityId";
+        List userList = getSession().createSQLQuery(searchUser).setString("id",userInfo.getOpenid()).setLong("activityId",userInfo.getActivityId()).list();
         if(!CollectionUtil.isEmptyCollection(userList)){
             throw new MessageException().setErrorMsg("您已作答过,请勿重复提交");
         }

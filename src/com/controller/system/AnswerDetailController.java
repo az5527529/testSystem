@@ -4,6 +4,7 @@ import com.entity.AnswerDetail;
 import com.entity.UserInfo;
 import com.exception.MessageException;
 import com.service.system.AnswerDetailService;
+import com.util.StringUtil;
 import com.util.WebUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -57,12 +58,14 @@ public class AnswerDetailController {
         String userName = request.getParameter("userName");
         String telephone = request.getParameter("telephone");
         String openid = request.getParameter("openid");
+        String activityId = request.getParameter("activityId");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);
         userInfo.setTelephone(telephone);
         userInfo.setOpenid(openid);
         userInfo.setTestTime(sdf.format(new Date()));
+        userInfo.setActivityId(StringUtil.isEmptyString(activityId)?0L:Long.parseLong(activityId));
 
         String list = request.getParameter("list");
         JSONArray array = JSONArray.fromObject(list);

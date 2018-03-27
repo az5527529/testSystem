@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 /**
  * Created by victor on 2018/2/28.
  */
@@ -17,10 +19,14 @@ public class ChoiceQuestion {
     private String content;
     private String answer;
     private String questionNo;
-    private String options;
+    private String keya;
+    private String keyb;
+    private String keyc;
+    private String keyd;
 
     @Id
     @Column(name = "choice_question_id", nullable = false)
+    @GeneratedValue(strategy = IDENTITY)
     public long getChoiceQuestionId() {
         return choiceQuestionId;
     }
@@ -38,8 +44,6 @@ public class ChoiceQuestion {
     public void setContent(String content) {
         this.content = content;
     }
-
-
 
     @Basic
     @Column(name = "answer", nullable = false, length = 8)
@@ -86,13 +90,44 @@ public class ChoiceQuestion {
         return result;
     }
 
+
     @Basic
-    @Column(name = "options", nullable = false, length = 512)
-    public String getOptions() {
-        return options;
+    @Column(name = "keya", nullable = false, length = 128)
+    public String getKeya() {
+        return keya;
     }
 
-    public void setOptions(String options) {
-        this.options = options;
+    public void setKeya(String keya) {
+        this.keya = keya;
+    }
+
+    @Basic
+    @Column(name = "keyb", nullable = false, length = 128)
+    public String getKeyb() {
+        return keyb;
+    }
+
+    public void setKeyb(String keyb) {
+        this.keyb = keyb;
+    }
+
+    @Basic
+    @Column(name = "keyc", nullable = false, length = 128)
+    public String getKeyc() {
+        return keyc;
+    }
+
+    public void setKeyc(String keyc) {
+        this.keyc = keyc;
+    }
+
+    @Basic
+    @Column(name = "keyd", nullable = false, length = 128)
+    public String getKeyd() {
+        return keyd;
+    }
+
+    public void setKeyd(String keyd) {
+        this.keyd = keyd;
     }
 }

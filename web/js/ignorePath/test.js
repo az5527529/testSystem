@@ -1,9 +1,11 @@
 var i = 0;//选择题下标
 var j = 0;//判断题下标
+var activity =[];//活动
 $(function(){
     if(!code){
         window.location.href = ctx + "/weixin.jsp?url=" + ctx+"/test.jsp";//跳到授权页面
     }else{
+        //获取微信id
         $.ajax({
             type : "post",
             dataType : 'json',
@@ -29,10 +31,30 @@ $(function(){
             async : false
         });
 
+        //加载当前启用的活动
+        $.ajax({
+            type : "post",
+            dataType : 'json',
+            data : {activityType:1},
+            url : ctx+"/activity/getActivity.action?ids=" + Math.random(),
+
+            success : function(data) {
+                if(data.success){
+                    activity = data.activity;
+                    $("#activityId").val(activity.activityId);
+                }else{
+                    window.location.href = encodeURI(ctx + "/error.jsp?errorMsg=" + data.errorMsg);//跳到错误页面
+                }
+
+            },
+            async : false
+        });
+
+
         //判断是否已经考过试
         $.ajax({
             type : "post",
-            data : {openid:$("#openid").val()},
+            data : {openid:$("#openid").val(),activityId:activity.activityId},
             dataType : 'json',
             url : ctx+"/userInfo/isHaveTest.action?ids=" + Math.random(),
 
@@ -78,10 +100,10 @@ $(function(){
                         //第二行
                         var seccondUl = $("<ul>");//选项
                         seccondUl.append($("<input type='hidden'id='choice_id_"+i+"' value='"+data.questionId+"'>"));
-                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='A' checked='checked'>A" + data.keya));
-                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='B'>B" + data.keyb));
-                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='C'>C" + data.keyc));
-                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='D'>D" + data.keyd));
+                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='A' checked='checked'>A&nbsp;" + data.keya));
+                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='B'>B&nbsp;" + data.keyb));
+                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='C'>C&nbsp;" + data.keyc));
+                        seccondUl.append($("<li></li>").html("&nbsp;<input type='radio' name='choice_"+i+"'value='D'>D&nbsp;" + data.keyd));
                         choiceDiv.append(seccondUl);
                     }else if(type == 2){//判断题
                         j++;
@@ -121,6 +143,7 @@ function saveTest(){
             data.userName = $("#userName").val();
             data.telephone = $("#telephone").val();
             data.openid = $("#openid").val();
+            data.activityId = $("#activityId").val();
             var list = new Array();//各个题目的答案
             //选择题信息
             for(var index = 1;index <=i;index++){

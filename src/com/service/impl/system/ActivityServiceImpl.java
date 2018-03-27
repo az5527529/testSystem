@@ -6,6 +6,8 @@ import com.service.system.ActivityService;
 import com.util.CollectionUtil;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,5 +44,22 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
             return list.get(0);
         }
         return "";
+    }
+
+    /**
+     * 根据活动类型获取当前已启用的活动
+     * @return
+     */
+    @Override
+    public Activity getActivity(int activityType) {
+        String hql = "from Activity where 1=1 and activityType=:type and startTime<=:currentTime and endTime>=:currentTime and isActive=true";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(new Date());
+        List<Activity> list = super.getSession().createQuery(hql).setString("currentTime",currentTime)
+                            .setInteger("type",activityType).list();
+        if(!CollectionUtil.isEmptyCollection(list)){
+            return list.get(0);
+        }
+        return null;
     }
 }

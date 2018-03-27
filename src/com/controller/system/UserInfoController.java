@@ -140,10 +140,11 @@ public class UserInfoController {
     public void isHaveTest(HttpServletRequest request,
                                      HttpServletResponse response) throws IOException {
         String openid = request.getParameter("openid");
+        String activityId = request.getParameter("activityId");
         net.sf.json.JSONObject o = new net.sf.json.JSONObject();
 
         try {
-            boolean isExist = this.userInfoService.isHaveTest(openid);
+            boolean isExist = this.userInfoService.isHaveTest(openid,activityId);
             o.put("success",1);
             o.put("isExist",isExist);
         } catch (MessageException e) {

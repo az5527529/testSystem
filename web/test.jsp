@@ -34,6 +34,7 @@
         <div id="userDiv">
             <form id="userForm">
                 <input type="hidden" id="openid">
+                <input type="hidden" id="activityId">
                 <ul>
                     <li><label>姓名<span class="redStar">*</span>:</label><input id="userName" name="userName" placeholder="请输入姓名" required="required"  /></li>
                     <li><label>电话<span class="redStar">*</span>:</label><input name="telephone" id="telephone" placeholder="请输入电话" required="required" /></li>
@@ -52,7 +53,5 @@
 
 </body>
 <script src="${ctx}/js/ignorePath/test.js"></script>
-<script type="text/javascript">
 
-</script>
 </html>

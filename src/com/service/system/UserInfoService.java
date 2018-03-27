@@ -22,5 +22,5 @@ public interface UserInfoService extends BaseService<UserInfo>,Reportable{
 
     public UserInfo loadUserInfoByOpenid(String openid) throws MessageException;
 
-    public boolean isHaveTest(String openid) throws MessageException;
+    public boolean isHaveTest(String openid,String activityId) throws MessageException;
 }

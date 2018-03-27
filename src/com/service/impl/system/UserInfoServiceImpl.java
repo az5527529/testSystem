@@ -104,12 +104,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements Us
      * @return
      */
     @Override
-    public boolean isHaveTest(String openid) throws MessageException {
+    public boolean isHaveTest(String openid,String activityId) throws MessageException {
+
         if(StringUtil.isEmptyString(openid)){
             throw new MessageException().setErrorMsg("请进行微信认证");
         }
-        String isExist = "select 1 from user_info where openid=:id";
-        List list = getSession().createSQLQuery(isExist).setString("id",openid).list();
+        String isExist = "select 1 from user_info where openid=:id and activity_id=:activityId";
+        List list = getSession().createSQLQuery(isExist).setString("id",openid).setString("activityId",activityId).list();
         if(CollectionUtil.isEmptyCollection(list)){
             return false;
         }

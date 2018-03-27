@@ -182,4 +182,19 @@ public class ActivityController {
         }
         WebUtil.outputPage(request, response, o.toString());
     }
+    @RequestMapping(value = "/getActivity", method = RequestMethod.POST)
+    public void getActivity(HttpServletRequest request,
+                           HttpServletResponse response) throws IOException {
+        String activityType = request.getParameter("activityType");
+        Activity activity = this.activityService.getActivity(StringUtil.isEmptyString(activityType) ? 1 : Integer.parseInt(activityType));
+        JSONObject result = new JSONObject();
+        if(activity == null){
+            result.put("success",0);
+            result.put("errorMsg","活动未开始或已结束");
+        }else{
+            result.put("success",1);
+            result.put("activity",activity);
+        }
+        WebUtil.outputPage(request, response, result.toString());
+    }
 }
