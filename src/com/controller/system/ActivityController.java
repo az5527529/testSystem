@@ -115,7 +115,7 @@ public class ActivityController {
                             break;
                         case "endTime" : entity.setEndTime(StringUtil.isEmptyString(value) ? "" : value);
                             break;
-                        case "isActive" : entity.setIsActive("1".equals(value));
+                        case "isActive" : entity.setIsActive("1".equals(value) || "true".equals(value));
                             break;
                         case "activityType" : entity.setActivityType(StringUtil.isEmptyString(value) ? 0 : Integer.parseInt(value));
                             break;
@@ -173,7 +173,16 @@ public class ActivityController {
     public void deleteById(HttpServletRequest request,
                            HttpServletResponse response) throws IOException {
         String id = request.getParameter("id");
-        int n = activityService.deleteById(Long.parseLong(id));
+        //删除旧图片
+        String srcImge = this.activityService.getImgeUrlById(Long.parseLong(id));//将旧数据load出来
+        File file = new File("d:\\image\\" + srcImge);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        int n = 0;
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                n = activityService.deleteById(Long.parseLong(id));
+            }
+        }
         JSONObject o = new JSONObject();
         if(n>0){
             o.put("success", "1");
