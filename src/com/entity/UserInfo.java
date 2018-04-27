@@ -6,6 +6,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -15,22 +17,22 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "user_info", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class UserInfo {
-    private long userInfoId;
+public class UserInfo implements Serializable{
+    private Long userInfoId;
     private String userName;
     private String telephone;
-    private double score;
+    private Double score;
     private String openid;
     private String testTime;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_info_id", nullable = false)
-    public long getUserInfoId() {
+    public Long getUserInfoId() {
         return userInfoId;
     }
 
-    public void setUserInfoId(long userInfoId) {
+    public void setUserInfoId(Long userInfoId) {
         this.userInfoId = userInfoId;
     }
 
@@ -56,11 +58,11 @@ public class UserInfo {
 
     @Basic
     @Column(name = "score", nullable = false, precision = 0)
-    public double getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 

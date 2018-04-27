@@ -13,7 +13,7 @@
 </head>
 <script src="${ctx}/js/system/judgeQuestionManage.js" type="text/javascript"></script>
 <body>
-<div id="cc" class="easyui-layout" style="width: 100%; height: 460px">
+<div id="cc" class="easyui-layout" style="width: 100%; height: 440px">
 
     <div data-options="region:'north',border:false" id="search"
          style="padding: 5px; height: 70px">

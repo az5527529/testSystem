@@ -1,5 +1,6 @@
 package com.controller.system;
 
+import com.alibaba.fastjson.JSONArray;
 import com.entity.Activity;
 import com.exception.MessageException;
 import com.service.system.ActivityService;
@@ -205,5 +206,12 @@ public class ActivityController {
             result.put("activity",activity);
         }
         WebUtil.outputPage(request, response, result.toString());
+    }
+    @RequestMapping(value = "/getAllActivityByType", method = RequestMethod.POST)
+    public void getAllActivityByType(HttpServletRequest request,
+                                HttpServletResponse response) throws IOException {
+        String activityType = request.getParameter("activityType");
+        List<Activity> list = activityService.getAllActivityByType(StringUtil.isEmptyString(activityType) ? 1 : Integer.parseInt(activityType));
+        WebUtil.outputPage(request, response, JSONArray.toJSONString(list));
     }
 }

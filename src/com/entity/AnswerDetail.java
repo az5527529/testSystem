@@ -4,6 +4,9 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by victor on 2018/2/28.
@@ -12,41 +15,42 @@ import javax.persistence.*;
 @Table(name = "answer_detail", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class AnswerDetail {
-    private long answerDetailId;
-    private long questionId;
-    private int questionType;
+public class AnswerDetail implements Serializable{
+    private Long answerDetailId;
+    private Long questionId;
+    private Integer questionType;
     private String userAnswer;
-    private boolean result;
-    private long userInfoId;
+    private Boolean result;
+    private Long userInfoId;
 
     @Id
     @Column(name = "answer_detail_id", nullable = false)
-    public long getAnswerDetailId() {
+    @GeneratedValue(strategy = IDENTITY)
+    public Long getAnswerDetailId() {
         return answerDetailId;
     }
 
-    public void setAnswerDetailId(long answerDetailId) {
+    public void setAnswerDetailId(Long answerDetailId) {
         this.answerDetailId = answerDetailId;
     }
 
     @Basic
     @Column(name = "question_id", nullable = false)
-    public long getQuestionId() {
+    public Long getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(long questionId) {
+    public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
 
     @Basic
     @Column(name = "question_type", nullable = false)
-    public int getQuestionType() {
+    public Integer getQuestionType() {
         return questionType;
     }
 
-    public void setQuestionType(int questionType) {
+    public void setQuestionType(Integer questionType) {
         this.questionType = questionType;
     }
 
@@ -62,21 +66,21 @@ public class AnswerDetail {
 
     @Basic
     @Column(name = "result", nullable = false)
-    public boolean isResult() {
+    public Boolean getResult() {
         return result;
     }
 
-    public void setResult(boolean result) {
+    public void setResult(Boolean result) {
         this.result = result;
     }
 
     @Basic
     @Column(name = "user_info_id", nullable = false)
-    public long getUserInfoId() {
+    public Long getUserInfoId() {
         return userInfoId;
     }
 
-    public void setUserInfoId(long userInfoId) {
+    public void setUserInfoId(Long userInfoId) {
         this.userInfoId = userInfoId;
     }
 

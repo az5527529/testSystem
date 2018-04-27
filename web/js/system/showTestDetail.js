@@ -32,7 +32,7 @@ function searchTest(){
     $('#showTestTable').datagrid("options").queryParams={
         "testTimeBegin": $("#testTimeBegin").datebox('getValue'),"testTimeEnd": $("#testTimeEnd").datebox('getValue')
         ,"userName":$("#userName").val(),"telephone":$("#telephone").val()
-        // fields:JSON.stringify({"questionNo": $("#questionNo").val(),"content": $("#content").val()}),
+        ,"activityId" : $('#activityId').combobox('getValue')
 
     };
     $('#showTestTable').datagrid("options").url=ctx+"/userInfo/searchUserInfo.action?ids=" + Math.random();
@@ -161,6 +161,7 @@ function exportAll(){
         ,{name: 'testTimeEnd', value: $("#testTimeEnd").datebox('getValue')}
         ,{name: 'userName', value:$("#userName").val()}
         ,{name: 'telephone', value:$("#telephone").val()}
+        ,{name: 'activityId',value : $('#activityId').combobox('getValue')}
         ,{name: 'serviceName',value : "userInfoService"}
     ];
 

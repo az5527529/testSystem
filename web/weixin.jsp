@@ -38,7 +38,6 @@
     ref += '&response_type=code';
     ref += '&scope=' + scope;
     ref += web;
-    console.log(ref);
     location.href = ref;
 </script>
 </body>

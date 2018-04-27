@@ -31,7 +31,8 @@ public class WechatUtil {
         String access_token = access_tokenObj==null?"":access_tokenObj.toString();
         vo.setAccessToken(access_token);
         vo.setOpenid(openid);
-        logger.info("start:{},vo=:{}",System.currentTimeMillis(),vo.toString());
+        SessionManager.setAttribute("openid",openid);
+        logger.info("end:{},vo=:{}",System.currentTimeMillis(),vo.toString());
         return vo;
     }
 }

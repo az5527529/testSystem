@@ -68,6 +68,10 @@ public class UserImgController {
                             break;
                         case "openid" : entity.setOpenid(value == null ? "" : value);
                             break;
+                        case "activityId" : entity.setActivityId(value == null ? 0 : Long.parseLong(value));
+                            break;
+                        case "userImgId" : entity.setUserImgId(StringUtil.isEmptyString(value) ? 0 : Long.parseLong(value));
+                            break;
                     }
                 }else{
                     String fileName = fileItem.getName();// 原文件名
@@ -84,8 +88,24 @@ public class UserImgController {
                     fileItem.delete();
                 }
             }
+
+            if(entity.getUserImgId()  > 0){//编辑
+                //图片修改时，删除旧图片
+                String srcImge = this.userImgService.getImgeUrlById(entity.getUserImgId());//将旧数据load出来
+                if(!entity.getImgUrl().equals(srcImge)){
+                    File file = new File("d:\\image\\" + srcImge);
+                    // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+                    if (file.exists() && file.isFile()) {
+                        if (!file.delete()) {
+                            throw  new MessageException().setErrorMsg("删除原背景图片失败");
+                        }
+                    }
+                }
+
+            }
             entity = this.userImgService.saveOrUpdateUserImg(entity);
             result.put("success",1);
+            result.put("entity",entity);
         }catch (Exception e){
             e.printStackTrace();
             result.put("success",0);
@@ -103,9 +123,10 @@ public class UserImgController {
     public void loadUserImgByOpenid(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
         String openid = request.getParameter("openid");
+        String activityId = request.getParameter("activityId");
         JSONObject result = new JSONObject();
         try {
-            UserImg entity = this.userImgService.loadUserImgByOpenid(openid);
+            UserImg entity = this.userImgService.loadUserImgByOpenid(openid,activityId);
             result.put("success",1);
             result.put("userImg",entity);
         } catch (MessageException e) {
@@ -124,6 +145,8 @@ public class UserImgController {
         String telephone = request.getParameter("telephone");
         String uploadTimeBegin = request.getParameter("uploadTimeBegin");
         String uploadTimeEnd = request.getParameter("uploadTimeEnd");
+        String activityId = request.getParameter("activityId");
+        whereCondition.append(" and activityId=" + activityId);
         if(!StringUtil.isEmptyString(userName)){
             whereCondition.append(" and userName='" + userName + "'");
         }
@@ -195,10 +218,11 @@ public class UserImgController {
     public void isExist(HttpServletRequest request,
                            HttpServletResponse response) throws IOException {
         String openid = request.getParameter("openid");
+        String activityId = request.getParameter("activityId");
         net.sf.json.JSONObject o = new net.sf.json.JSONObject();
 
         try {
-            boolean isExist = this.userImgService.isExist(openid);
+            boolean isExist = this.userImgService.isExist(openid,activityId);
             o.put("success",1);
             o.put("isExist",isExist);
         } catch (MessageException e) {

@@ -3,18 +3,10 @@ li{
     width: 100%;
 }
 #content{
-    display: flex;
-    display: -webkit-flex; /* Safari */
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
-#userForm{
-    display: flex;
-    display: -webkit-flex; /* Safari */
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
+#userForm ul{
+
 }
 #userImg{
     max-height: 100%;

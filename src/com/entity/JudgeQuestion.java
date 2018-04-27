@@ -4,6 +4,9 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by victor on 2018/2/28.
@@ -12,19 +15,20 @@ import javax.persistence.*;
 @Table(name = "judge_question", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class JudgeQuestion {
-    private long judgeQuestionId;
+public class JudgeQuestion implements Serializable{
+    private Long judgeQuestionId;
     private String content;
-    private boolean answer;
+    private Boolean answer;
     private String questionNo;
 
     @Id
     @Column(name = "judge_question_id", nullable = false)
-    public long getJudgeQuestionId() {
+    @GeneratedValue(strategy = IDENTITY)
+    public Long getJudgeQuestionId() {
         return judgeQuestionId;
     }
 
-    public void setJudgeQuestionId(long judgeQuestionId) {
+    public void setJudgeQuestionId(Long judgeQuestionId) {
         this.judgeQuestionId = judgeQuestionId;
     }
 
@@ -40,11 +44,11 @@ public class JudgeQuestion {
 
     @Basic
     @Column(name = "answer", nullable = false)
-    public boolean isAnswer() {
+    public Boolean getAnswer() {
         return answer;
     }
 
-    public void setAnswer(boolean answer) {
+    public void setAnswer(Boolean answer) {
         this.answer = answer;
     }
 

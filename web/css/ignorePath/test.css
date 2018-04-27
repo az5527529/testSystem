@@ -33,13 +33,13 @@ ul::after{
 #userForm li{
     height: 2.5rem;
     line-height: 2.3rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 #userForm input{
     height: 2.5rem;
     line-height: 2.3rem;
     width: 15rem;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 }
 #userForm{
     border-bottom: 2px solid  #bbb;

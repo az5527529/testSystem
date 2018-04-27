@@ -1,60 +1,29 @@
 
 $(function(){
-    if(!code){
-        window.location.href = ctx + "/weixin.jsp?url=" + ctx+"/uploadImg.jsp";//跳到授权页面
-    }else{
-        displayImg();
-        $.ajax({
-            type : "post",
-            dataType : 'json',
-            data : {code:code},
-            url : ctx+"/wechat/getWechatVo.action?ids=" + Math.random(),
+    displayImg();
+    //判断是否已经上传过图片
+    $.ajax({
+        type : "post",
+        data : {openid:$("#openid").val(),activityId:activityId},
+        dataType : 'json',
+        url : ctx+"/userImg/loadUserImgByOpenid.action?ids=" + Math.random(),
 
-            success : function(data) {
-                $("#openid").val(data.openid);
-            },
-            error : function(xhr, type, msg) {
-                var prompt = xhr.status + ': ' + msg;
-                if (xhr.status == 500) {
-                    var error = jQuery.parseJSON(xhr.responseText);
-                    prompt = error.errorMsg;
-                    if (error.exceptionCode)
-                        prompt = prompt + ' (' + error.exceptionCode + ')';
-                } else if (xhr.status == 0) {
-                    prompt = "服务器无响应";
-                }
-                alert(prompt);
-                window.location.href = ctx + "/error.jsp";//跳到错误页面
-            },
-            async : false
-        });
-
-        //判断是否已经上传过图片
-
-        $.ajax({
-            type : "post",
-            data : {openid:$("#openid").val()},
-            dataType : 'json',
-            url : ctx+"/userImg/loadUserImgByOpenid.action?ids=" + Math.random(),
-
-            success : function(data) {
-                if(data.success){
-                    //如果已上传过图片，则加载图片信息，并只展示，不可修改
-                    if(data.userImg){
-                        var userImg = data.userImg;
-                        $("#userImg").attr("src",ctx + "/userImg/getImgByUrl.action?imgUrl=" +userImg.imgUrl);
-                        $("#userForm").form("load",userImg);
-                    }else{
-                        showImg();
-                    }
+        success : function(data) {
+            if(data.success){
+                //如果已上传过图片，则加载图片信息，并只展示，不可修改
+                if(data.userImg){
+                    var userImg = data.userImg;
+                    $("#userImg").attr("src",ctx + "/userImg/getImgByUrl.action?imgUrl=" +userImg.imgUrl);
+                    $("#userForm").form("load",userImg);
                 }else{
-                    newAlert(data.errorMsg);
+                    showImg();
                 }
-            },
-            async : false
-        });
-
-    }
+            }else{
+                newAlert(data.errorMsg);
+            }
+        },
+        async : false
+    });
 
 
 });
@@ -110,44 +79,48 @@ function upload(){
     }
     $.messager.confirm('确认', '您确定要提交?', function (r) {
         if (r) {
-            //判断是否已经上传过图片
-            $.ajax({
-                type : "post",
-                data : {openid:$("#openid").val()},
-                dataType : 'json',
-                url : ctx+"/userImg/isExist.action?ids=" + Math.random(),
+            if(!$("#userImgId").val()){
 
-                success : function(data) {
-                    if(data.success){
-                        //如果已上传过图片，则加载图片信息，并只展示，不可修改
-                        if(data.isExist){
-                            alert("您已上传过图片，请勿重复提交");
+                //判断是否已经上传过图片
+                $.ajax({
+                    type : "post",
+                    data : {openid:$("#openid").val(),activityId:activityId},
+                    dataType : 'json',
+                    url : ctx+"/userImg/isExist.action?ids=" + Math.random(),
+
+                    success : function(data) {
+                        if(data.success){
+                            //如果已上传过图片，则加载图片信息，并只展示，不可修改
+                            if(data.isExist){
+                                alert("您已上传过图片，请勿重复提交");
+                                return;
+                            }
                         }else{
-
-                            $("#userForm").form("submit", {
-                                url: ctx+"/userImg/uploadImg.action",
-                                onsubmit: function () {
-                                    return false;
-                                    //return $(this).form("validate");
-                                },
-                                success: function (result) {
-                                    result = JSON.parse(result);
-                                    if(result.success){
-                                        alert("上传成功");
-                                        displayImg();
-                                    }else {
-                                        newAlert("上传失败");
-                                    }
-
-                                },
-
-                            });
+                            newAlert(data.errorMsg);
+                            return;
                         }
-                    }else{
-                        newAlert(data.errorMsg);
-                    }
+                    },
+                    async : false
+                });
+            }
+            $("#userForm").form("submit", {
+                url: ctx+"/userImg/uploadImg.action",
+                onsubmit: function () {
+                    return false;
+                    //return $(this).form("validate");
                 },
-                async : false
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if(result.success){
+                        alert("上传成功");
+                        $("#userForm").form("load",result.entity);
+                        displayImg();
+                    }else {
+                        newAlert("上传失败");
+                    }
+
+                },
+
             });
 
         }
@@ -157,15 +130,21 @@ function upload(){
 
 //展示上传的图片，不让编辑
 function displayImg() {
-    $("#uploadBtnUl").hide();
+    $("#uploadBtn").hide();
+    $("#modifyBtn").show();
     $("#uploadFile").hide();
     $("#userName").prop("disabled",true);
     $("#telephone").prop("disabled",true);
 }
 
 function showImg(){
-    $("#uploadBtnUl").show();
+    $("#uploadBtn").show();
+    $("#modifyBtn").hide();
     $("#uploadFile").show();
     $("#userName").prop("disabled",false);
     $("#telephone").prop("disabled",false);
+}
+
+function modify() {
+    showImg();
 }

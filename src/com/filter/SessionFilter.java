@@ -65,7 +65,7 @@ public class SessionFilter implements Filter {
         }
 
         String[] ignoreFiles = new String[]{"login.jsp","error.jsp","showScore.jsp","test.jsp",
-                "uploadImg.jsp","weixin.jsp","error.jsp"};
+                "uploadImg.jsp","weixin.jsp","error.jsp","expire.jsp"};
         for (String ignoreFile: ignoreFiles) {
             if(filterResult){
                 return true;

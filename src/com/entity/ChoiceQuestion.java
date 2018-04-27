@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -14,8 +16,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "choice_question", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class ChoiceQuestion {
-    private long choiceQuestionId;
+public class ChoiceQuestion implements Serializable{
+    private Long choiceQuestionId;
     private String content;
     private String answer;
     private String questionNo;
@@ -27,11 +29,11 @@ public class ChoiceQuestion {
     @Id
     @Column(name = "choice_question_id", nullable = false)
     @GeneratedValue(strategy = IDENTITY)
-    public long getChoiceQuestionId() {
+    public Long getChoiceQuestionId() {
         return choiceQuestionId;
     }
 
-    public void setChoiceQuestionId(long choiceQuestionId) {
+    public void setChoiceQuestionId(Long choiceQuestionId) {
         this.choiceQuestionId = choiceQuestionId;
     }
 

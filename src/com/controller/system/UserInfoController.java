@@ -36,6 +36,7 @@ public class UserInfoController {
         condition.put("testTimeEnd",request.getParameter("testTimeEnd"));
         condition.put("userName",request.getParameter("userName"));
         condition.put("telephone",request.getParameter("telephone"));
+        condition.put("activityId",request.getParameter("activityId"));
         String rowsStr = request.getParameter("rows");
         String pageStr=request.getParameter("page");
         int pageSize = 10;
@@ -115,10 +116,11 @@ public class UserInfoController {
     public void loadUserInfoByOpenid(HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
         String openid = request.getParameter("openid");
+        String activityId = request.getParameter("activityId");
         net.sf.json.JSONObject o = new net.sf.json.JSONObject();
 
         try {
-            UserInfo entity = this.userInfoService.loadUserInfoByOpenid(openid);
+            UserInfo entity = this.userInfoService.loadUserInfoByOpenid(openid,activityId);
             o.put("success",1);
             o.put("userInfo",entity);
         } catch (MessageException e) {

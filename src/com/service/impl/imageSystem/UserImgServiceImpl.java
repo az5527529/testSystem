@@ -17,7 +17,7 @@ import java.util.List;
 public class UserImgServiceImpl extends BaseServiceImpl<UserImg> implements UserImgService {
     @Override
     public UserImg saveOrUpdateUserImg(UserImg entity) {
-        if(entity.getUserImgId() > 0){
+        if(entity.getUserImgId() != null && entity.getUserImgId() > 0){
             return this.update(entity);
         }else{
             return this.save(entity);
@@ -25,12 +25,13 @@ public class UserImgServiceImpl extends BaseServiceImpl<UserImg> implements User
     }
 
     @Override
-    public UserImg loadUserImgByOpenid(String openid) throws MessageException {
+    public UserImg loadUserImgByOpenid(String openid,String activityId) throws MessageException {
         if(StringUtil.isEmptyString(openid)){
             throw new MessageException().setErrorMsg("请进行微信认证");
         }
-        String hql = "from UserImg where openid=:id";
-        List<UserImg> list = getSession().createQuery(hql).setString("id",openid).list();
+        String hql = "from UserImg where openid=:id and activityId=:activityId";
+        List<UserImg> list = getSession().createQuery(hql).setString("id",openid)
+                            .setString("activityId",activityId).list();
         if(!CollectionUtil.isEmptyCollection(list)){
             return list.get(0);
         }
@@ -44,15 +45,26 @@ public class UserImgServiceImpl extends BaseServiceImpl<UserImg> implements User
      * @throws MessageException
      */
     @Override
-    public boolean isExist(String openid) throws MessageException{
+    public boolean isExist(String openid,String activityId) throws MessageException{
         if(StringUtil.isEmptyString(openid)){
             throw new MessageException().setErrorMsg("请进行微信认证");
         }
-        String sql = "select 1 from user_img where openid=:id";
-        List list = super.getSession().createSQLQuery(sql).setString("id",openid).list();
+        String sql = "select 1 from user_img where openid=:id  and activity_Id=:activityId";
+        List list = super.getSession().createSQLQuery(sql).setString("id",openid)
+                    .setString("activityId",activityId).list();
         if(!CollectionUtil.isEmptyCollection(list)){
            return true;
         }
         return false;
+    }
+
+    @Override
+    public String getImgeUrlById(long id) {
+        String sql = "select img_url from user_img where 1=1 and user_img_id=:id";
+        List<String> list = this.getSession().createSQLQuery(sql).setLong("id",id).list();
+        if(!CollectionUtil.isEmptyCollection(list)){
+            return list.get(0);
+        }
+        return "";
     }
 }

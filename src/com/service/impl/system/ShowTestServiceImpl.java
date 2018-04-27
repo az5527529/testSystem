@@ -48,6 +48,9 @@ public class ShowTestServiceImpl extends BaseServiceImpl<UserInfo> implements Sh
             conditionSql.append(" and test_time<='" + testTimeEnd + " 23:59:59'");
         }
 
+        String activityId = condition.get("activityId");
+        conditionSql.append(" and activity_id=" + activityId);
+
         StringBuffer sql = new StringBuffer();
         sql.append("select cast(count(1) as char) totalNum,cast(ifnull(max(score),0) as char) maxScore, cast(round(ifnull(avg(score),0),2) as char) average \n");
         sql.append("from user_info where 1=1 ");

@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -14,17 +16,17 @@ import static javax.persistence.GenerationType.IDENTITY;
 @javax.persistence.Table(name = "login_user", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class LoginUser {
-    private long loginUserId;
+public class LoginUser implements Serializable{
+    private Long loginUserId;
 
     @Id
     @javax.persistence.Column(name = "login_user_id", nullable = false)
     @GeneratedValue(strategy = IDENTITY)
-    public long getLoginUserId() {
+    public Long getLoginUserId() {
         return loginUserId;
     }
 
-    public void setLoginUserId(long loginUserId) {
+    public void setLoginUserId(Long loginUserId) {
         this.loginUserId = loginUserId;
     }
 
@@ -68,7 +70,7 @@ public class LoginUser {
 
     @Override
     public int hashCode() {
-        int result = (int) (loginUserId ^ (loginUserId >>> 32));
+        int result = 1;
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;

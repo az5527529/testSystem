@@ -6,12 +6,14 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306/test</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <mapping class="com.entity.UserInfo"/>
+      <mapping class="com.entity.UserInfo"/>
     <mapping class="com.entity.AnswerDetail"/>
     <mapping class="com.entity.TestInfo"/>
     <mapping class="com.entity.ChoiceQuestion"/>
     <mapping class="com.entity.JudgeQuestion"/>
       <mapping class="com.entity.UserImg"/>
+      <mapping class="com.entity.Activity"/>
+      <mapping class="com.entity.LoginUser"/>
 
 
       <!-- DB schema will be updated if needed -->

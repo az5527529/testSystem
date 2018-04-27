@@ -7,12 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@include file="/WEB-INF/pages/common/head.jsp"%>
-<%
-    String openid = request.getParameter("openid");
-%>
+
 <html>
 <head>
-    <title>Title</title>
+    <title>${activity.activityName}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,user-scalable=no"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -23,32 +21,26 @@
             width: 100%;
         }
         #content{
-            display: flex;
-            display: -webkit-flex; /* Safari */
-            flex-direction:column;
-            align-items: center;
-            justify-content: center;
             width: 80%;
-            margin: 10rem auto;
+            margin: 0 auto;
         }
         .infoUl li{
-            float: none;
+            float: left;
         }
         .infoUl{
             width: 100%;
-            display: flex;
-            display: -webkit-flex; /* Safari */
-            flex-direction:row;
-            align-items: center;
-            justify-content: flex-start;
             margin-top: 1rem;
         }
     </style>
 </head>
 
 <body>
+    <div class="header">
+        <img class="backgroundImg2" id="backgroundImg" src="${ctx}/userImg/getImgByUrl.action?imgUrl=${activity.backgroundUrl}">
+    </div>
     <div id="content">
-        <input type="hidden" id="openid" value="<%=openid%>">
+        <input type="hidden" id="openid" value="${sessionScope.openid}">
+        <input type="hidden" id="activityId" value="${sessionScope.activityId}">
         <input type="hidden" id="userInfoId" >
         <ul class="infoUl">
             <li><label>姓名:</label></li>

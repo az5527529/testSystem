@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -14,24 +16,25 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "activity", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class Activity {
-    private long activityId;
+public class Activity implements Serializable{
+    private Long activityId;
     private String content;
     private String startTime;
     private String endTime;
     private String backgroundUrl;
-    private boolean isActive;
-    private int activityType;
+    private Boolean isActive;
+    private Integer activityType;
     private String activityName;
+    private String createdUser;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "activity_id", nullable = false)
-    public long getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(long activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 
@@ -77,21 +80,21 @@ public class Activity {
 
     @Basic
     @Column(name = "is_active", nullable = false)
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 
     @Basic
     @Column(name = "activity_type", nullable = false)
-    public int getActivityType() {
+    public Integer getActivityType() {
         return activityType;
     }
 
-    public void setActivityType(int activityType) {
+    public void setActivityType(Integer activityType) {
         this.activityType = activityType;
     }
 
@@ -134,5 +137,15 @@ public class Activity {
 
     public void setActivityName(String activityName) {
         this.activityName = activityName;
+    }
+
+    @Basic
+    @Column(name = "created_user", nullable = false, length = 64)
+    public String getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(String createdUser) {
+        this.createdUser = createdUser;
     }
 }

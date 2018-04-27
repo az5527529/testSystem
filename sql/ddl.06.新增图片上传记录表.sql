@@ -6,10 +6,12 @@ CREATE TABLE `user_img` (
   `img_name` varchar(64) NOT NULL default '' COMMENT '图片名称',
   `openid` varchar(64) NOT NULL default '' COMMENT '微信id',  
   `upload_time` varchar(64) NOT NULL default '' COMMENT '上传时间',  
+  `activity_id` bigint NOT NULL DEFAULT 0 COMMENT '活动id',
   
   PRIMARY KEY (`user_img_id`),
   key user_img_user_name(`user_name`),
   key user_img_telephone(`telephone`),
   key user_img_openid(`openid`),
-  key user_img_upload_time(`upload_time`)
+  key user_img_upload_time(`upload_time`),
+  key user_img_activity_id(`activity_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

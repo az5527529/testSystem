@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -14,61 +16,61 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "test_info", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class TestInfo {
-    private long testInfoId;
-    private int numberOfJudge;
-    private double valueOfJudge;
-    private int numberOfSelect;
-    private double valueOfSelect;
+public class TestInfo implements Serializable {
+    private Long testInfoId;
+    private Integer numberOfJudge;
+    private Double valueOfJudge;
+    private Integer numberOfSelect;
+    private Double valueOfSelect;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "test_info_id", nullable = false)
-    public long getTestInfoId() {
+    public Long getTestInfoId() {
         return testInfoId;
     }
 
-    public void setTestInfoId(long testInfoId) {
+    public void setTestInfoId(Long testInfoId) {
         this.testInfoId = testInfoId;
     }
 
     @Basic
     @Column(name = "number_of_judge", nullable = false)
-    public int getNumberOfJudge() {
+    public Integer getNumberOfJudge() {
         return numberOfJudge;
     }
 
-    public void setNumberOfJudge(int numberOfJudge) {
+    public void setNumberOfJudge(Integer numberOfJudge) {
         this.numberOfJudge = numberOfJudge;
     }
 
     @Basic
     @Column(name = "value_of_judge", nullable = false, precision = 0)
-    public double getValueOfJudge() {
+    public Double getValueOfJudge() {
         return valueOfJudge;
     }
 
-    public void setValueOfJudge(double valueOfJudge) {
+    public void setValueOfJudge(Double valueOfJudge) {
         this.valueOfJudge = valueOfJudge;
     }
 
     @Basic
     @Column(name = "number_of_select", nullable = false)
-    public int getNumberOfSelect() {
+    public Integer getNumberOfSelect() {
         return numberOfSelect;
     }
 
-    public void setNumberOfSelect(int numberOfSelect) {
+    public void setNumberOfSelect(Integer numberOfSelect) {
         this.numberOfSelect = numberOfSelect;
     }
 
     @Basic
     @Column(name = "value_of_select", nullable = false, precision = 0)
-    public double getValueOfSelect() {
+    public Double getValueOfSelect() {
         return valueOfSelect;
     }
 
-    public void setValueOfSelect(double valueOfSelect) {
+    public void setValueOfSelect(Double valueOfSelect) {
         this.valueOfSelect = valueOfSelect;
     }
 

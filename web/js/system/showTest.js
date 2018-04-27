@@ -26,7 +26,7 @@ $(function(){
 function searchTest(){
     $('#showTestTable').datagrid("options").queryParams={
         "testTimeBegin": $("#testTimeBegin").datebox('getValue'),"testTimeEnd": $("#testTimeEnd").datebox('getValue')
-        // fields:JSON.stringify({"questionNo": $("#questionNo").val(),"content": $("#content").val()}),
+        ,"activityId" : $('#activityId').combobox('getValue')
 
     };
     $('#showTestTable').datagrid("options").url=ctx+"/showTest/showGeneralTest.action?ids=" + Math.random();
@@ -38,6 +38,7 @@ function exportAll(){
     var params =[
         {name: 'testTimeBegin', value: $("#testTimeBegin").datebox('getValue')}
         ,{name: 'testTimeEnd', value: $("#testTimeEnd").datebox('getValue')}
+        ,{name: 'activityId',value : $('#activityId').combobox('getValue')}
         ,{name: 'serviceName',value : "showTestService"}
     ];
 

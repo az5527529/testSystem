@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -14,23 +16,24 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "user_img", schema = "test", catalog = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class UserImg {
-    private long userImgId;
+public class UserImg implements Serializable{
+    private Long userImgId;
     private String userName;
     private String telephone;
     private String imgUrl;
     private String imgName;
     private String openid;
     private String uploadTime;
+    private Long activityId;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_img_id", nullable = false)
-    public long getUserImgId() {
+    public Long getUserImgId() {
         return userImgId;
     }
 
-    public void setUserImgId(long userImgId) {
+    public void setUserImgId(Long userImgId) {
         this.userImgId = userImgId;
     }
 
@@ -118,5 +121,15 @@ public class UserImg {
 
     public void setUploadTime(String uploadTime) {
         this.uploadTime = uploadTime;
+    }
+
+    @Basic
+    @Column(name = "activity_id", nullable = false)
+    public Long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 }

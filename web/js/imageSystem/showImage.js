@@ -11,6 +11,7 @@ function searchImage(isClickSearch){
                 ,telephone:$("#telephone").val()
                 ,uploadTimeBegin:$("#uploadTimeBegin").datebox('getValue')
                 ,uploadTimeEnd:$("#uploadTimeEnd").datebox('getValue')
+                ,"activityId" : $('#activityId').combobox('getValue')
                 ,page:page},
         dataType : 'json',
         url : ctx+"/userImg/searchImage.action?ids=" + Math.random(),
@@ -43,15 +44,18 @@ function searchImage(isClickSearch){
                 var $img = $("<img src='"+ctx + "/userImg/getImgByUrl.action?imgUrl=" +image.imgUrl+"' onclick='detail(\""+image.imgUrl+"\")'>");//图片
                 $picDiv.append($img);
                 $div.append($picDiv);
-                var $userName = $("<span>姓名："+image.userName+"</span>");//姓名
+                var $userName = $("<p>姓名："+image.userName+"</p>");//姓名
                 $div.append($userName);
-                var $telephone = $("<span>电话："+image.telephone+"</span>");//电话
+                var $telephone = $("<p>电话："+image.telephone+"</p>");//电话
                 $div.append($telephone);
-                var $uploadTime = $("<span>"+image.uploadTime+"</span>");//上传时间
+                var $uploadTime = $("<p>"+image.uploadTime+"</p>");//上传时间
                 $div.append($uploadTime);
 
                 var $deleteBtn = $("<a href='#' style='color:red' onclick='deleteImge("+image.userImgId+")'>删除</a>");
                 $div.append($deleteBtn);
+
+                var $downLoadBtn = $("<a href='"+ctx + "/userImg/getImgByUrl.action?imgUrl=" +image.imgUrl+"' style='color:red' download='"+image.imgName+"'>下载</a>");
+                $div.append($downLoadBtn);
             }
         },
         async : true

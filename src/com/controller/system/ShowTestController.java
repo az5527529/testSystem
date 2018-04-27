@@ -37,6 +37,7 @@ public class ShowTestController {
         Map<String,String> condition = new  HashMap<String, String>();
         condition.put("testTimeBegin",request.getParameter("testTimeBegin"));
         condition.put("testTimeEnd",request.getParameter("testTimeEnd"));
+        condition.put("activityId",request.getParameter("activityId"));
         String rowsStr = request.getParameter("rows");
         String pageStr=request.getParameter("page");
         int pageSize = 10;

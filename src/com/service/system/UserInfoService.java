@@ -20,7 +20,7 @@ public interface UserInfoService extends BaseService<UserInfo>,Reportable{
 
     public List loadTest();
 
-    public UserInfo loadUserInfoByOpenid(String openid) throws MessageException;
+    public UserInfo loadUserInfoByOpenid(String openid,String activityid) throws MessageException;
 
     public boolean isHaveTest(String openid,String activityId) throws MessageException;
 }

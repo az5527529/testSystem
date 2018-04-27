@@ -25,6 +25,13 @@
     <div class="container" id="container">
         <header class="header" id="header">
             <ul>
+                <li><label>活动:</label>
+
+                <li style="width: 10rem;">
+                    <select id="activityId"  style="width: 100%;" name='activityId' class="easyui-combobox"
+                            data-options="editable:false" >
+                    </select>
+                </li>
                 <li><label for="userName">姓名:</label> <input id="userName" class="easyui-validatebox" /></li>
                 <li><label for="telephone">电话:</label> <input id="telephone" class="easyui-validatebox" /></li>
                 <li><label>日期:</label>
@@ -67,5 +74,22 @@
 
 </body>
 <script src="${ctx}/js/imageSystem/showImage.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#activityId").combobox({
+            url:ctx + '/activity/getAllActivityByType.action?activityType=2',
+            valueField:'activityId',//相当于option的value值
+            textField:'activityName',//相当于<option></option>之间的显示值 value:1000    //默认显示值
+            onLoadSuccess: function () { //加载完成后,设置选中第一项
+                var val = $(this).combobox('getData');
+                for (var item in val[0]) {
+                    if (item == 'activityId') {
+                        $(this).combobox('select', val[0][item]);
+                    }
+                }
+            }
+        });
+    });
 
+</script>
 </html>

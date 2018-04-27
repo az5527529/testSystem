@@ -10,7 +10,9 @@ import com.service.common.BaseService;
 public interface UserImgService extends BaseService<UserImg> {
     public UserImg saveOrUpdateUserImg(UserImg entity);
 
-    public UserImg loadUserImgByOpenid(String openid) throws MessageException;
+    public UserImg loadUserImgByOpenid(String openid,String activityId) throws MessageException;
 
-    public boolean isExist(String openid) throws MessageException;
+    public boolean isExist(String openid,String activityId) throws MessageException;
+
+    public String getImgeUrlById(long id);
 }

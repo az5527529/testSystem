@@ -24,7 +24,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements Us
 
     @Override
     public UserInfo saveOrUpdateEntity(UserInfo entity) {
-        if(entity.getUserInfoId() > 0){
+        if(entity.getUserInfoId() != null && entity.getUserInfoId() > 0){
             return this.update(entity);
         }else{
             return this.save(entity);
@@ -85,12 +85,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements Us
     }
 
     @Override
-    public UserInfo loadUserInfoByOpenid(String openid) throws MessageException {
+    public UserInfo loadUserInfoByOpenid(String openid,String activityid) throws MessageException {
         if(StringUtil.isEmptyString(openid)){
             throw new MessageException().setErrorMsg("请进行微信认证");
         }
-        String hql = "from UserInfo where openid=:id";
-        List<UserInfo> list = getSession().createQuery(hql).setString("id",openid).list();
+        String hql = "from UserInfo where openid=:id and activityId=:activityId";
+        List<UserInfo> list = getSession().createQuery(hql).setString("id",openid).setString("activityId",activityid).list();
         if(CollectionUtil.isEmptyCollection(list)){
             throw new MessageException().setErrorMsg("该用户还没考试");
         }
@@ -150,6 +150,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements Us
         if(!StringUtil.isEmptyString(telephone)){
             conditionSql.append(" and telephone like '%" + telephone + "%' ");
         }
+        String activityId = condition.get("activityId");
+        conditionSql.append(" and activity_id=" + activityId);
 
         StringBuffer sql = new StringBuffer();
         sql.append("select user_info_id userInfoId,user_name userName,telephone telephone,cast(score as char) score,test_time testTime \n");
