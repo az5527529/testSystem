@@ -2,6 +2,7 @@ package com.controller.common;
 
 import com.entity.LoginUser;
 import com.service.common.LoginService;
+import com.util.StringUtil;
 import com.util.WebUtil;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,10 @@ public class LoginController {
         String checkCode = request.getParameter("checkCode");
         String randCheckCode = (String)request.getSession().getAttribute("randCheckCode");
         LoginUser loginUser = null;
-        if(!randCheckCode.equalsIgnoreCase(checkCode)){
+        if(StringUtil.isEmptyString(randCheckCode)){
+            loginUser = new LoginUser();
+            loginUser.setErrorMsg("验证码超时");
+        }else if(!randCheckCode.equalsIgnoreCase(checkCode)){
             loginUser = new LoginUser();
             loginUser.setErrorMsg("验证码错误");
         }else{
